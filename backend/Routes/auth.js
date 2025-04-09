@@ -12,6 +12,7 @@ router.get('/', auth, async (req, res) => {
       
       if (!user) {
         return res.status(404).json({ msg: 'User not found' });
+        alert('User not found')
       }
       
       res.json(user);
@@ -30,6 +31,7 @@ router.post('/register', async (req, res) => {
     let user = await User.findOne({ email });
     if (user) {
       return res.status(400).json({ msg: 'User already exists' });
+      alert('User already exists') ;
     }
     
     // Create new user

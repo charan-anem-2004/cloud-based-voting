@@ -33,6 +33,7 @@ router.post('/', auth, async (req, res) => {
   try {
     if (!req.user.isAdmin) {
       return res.status(403).json({ msg: 'Not authorized' });
+      alert('Not authorized');
     }
     
     const { title, description, candidates, endDate } = req.body;
@@ -51,9 +52,11 @@ router.post('/', auth, async (req, res) => {
     
     const election = await newElection.save();
     res.json(election);
+    alert('Election created successfully');
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server error');
+    alert('Server error'+err.message);
   }
 });
 
@@ -62,11 +65,13 @@ router.put('/:id', auth, async (req, res) => {
   try {
     if (!req.user.isAdmin) {
       return res.status(403).json({ msg: 'Not authorized' });
+      alert('Not authorized');
     }
     
     let election = await Election.findById(req.params.id);
     if (!election) {
       return res.status(404).json({ msg: 'Election not found' });
+      alert('Election not found');
     }
     
     const { title, description, isActive, endDate } = req.body;
@@ -81,6 +86,7 @@ router.put('/:id', auth, async (req, res) => {
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server error');
+    alert('Server error'+err.message);
   }
 });
 
@@ -89,18 +95,22 @@ router.delete('/:id', auth, async (req, res) => {
   try {
     if (!req.user.isAdmin) {
       return res.status(403).json({ msg: 'Not authorized' });
+      alert('Not authorized');
     }
     
     const election = await Election.findById(req.params.id);
     if (!election) {
       return res.status(404).json({ msg: 'Election not found' });
+      alert("elecetion not found ");
     }
     
     await Election.findByIdAndRemove(req.params.id);
     res.json({ msg: 'Election removed' });
+    alert("election removed");
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server error');
+    alert("server error"+err.message);
   }
 });
 

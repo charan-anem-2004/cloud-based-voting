@@ -9,11 +9,11 @@ docker run --name mongodb-container -p 27017:27017 --network voting-network -d m
 
 step 2: Run the backend container
 
-docker run --name backend -p 5001:5001 --network voting-network voting-backend
+docker run --name backend -p 5001:5001 --network voting-network -d charanaravind/backend
 
 step 3: Run the react container
 
-docker run --name frontend -p 5174:80 --network voting-network charanaravind/cloudreact
+docker run --name frontend -p 5174:80 --network voting-network -d charanaravind/cloudreact
 
 if your containers already running
 
@@ -53,3 +53,6 @@ docker build -t voting-backend .
 docker stop backend
 docker rm backend
 docker run --name backend -p 5001:5001 --network voting-network voting-backend
+
+docker push charnaravind/cloudreact
+docker push charanaravind/backend

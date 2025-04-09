@@ -35,6 +35,7 @@ const loadUser = async () => {
   } else {
     // If no token, dispatch AUTH_ERROR and return early
     dispatch({ type: AUTH_ERROR });
+    alert ("No token found, please login again.");
     return;
   }
 
@@ -65,6 +66,8 @@ try {
       type: REGISTER_SUCCESS,
       payload: res.data
     });
+    alert("user registered sucessfully");
+    setAuthToken(res.data.token);
   
     loadUser();
   } catch (err) {
@@ -72,6 +75,7 @@ try {
       type: REGISTER_FAIL,
       payload: err.response.data.msg
     });
+    alert( err.response?.data?.msg || 'registration failed');
   }
 };
 
@@ -93,13 +97,16 @@ const login = async formData => {
       type: LOGIN_SUCCESS,
       payload: res.data
     });
+    alert("login success")
     
     loadUser();
   } catch (err) {
     dispatch({
       type: LOGIN_FAIL,
       payload: err.response?.data?.msg || 'Login failed'
+
     });
+    alert(err.response?.data?.msg || 'Login failed');
   }
 };
 
