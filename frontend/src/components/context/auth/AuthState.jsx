@@ -24,7 +24,7 @@ error: null
 };
 
 const [state, dispatch] = useReducer(authReducer, initialState);
-const base_url='http://localhost:5001';
+const base_url='http://backend:5001';
 
 // Load User
 const loadUser = async () => {
