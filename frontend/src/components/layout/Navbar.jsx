@@ -1,53 +1,41 @@
-// components/layout/Navbar.jsx
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import AuthContext from '../context/auth/AuthContext';
+import './Navbar.css';
 
 const Navbar = () => {
   const authContext = useContext(AuthContext);
   const { isAuthenticated, logout, user } = authContext;
-
+  
   const onLogout = () => {
     logout();
   };
-
+  
   return (
     <nav className="navbar">
-      <h1>
-        <Link to="/">
-          <i className="fas fa-vote-yea"></i> VoteCloud
-        </Link>
-      </h1>
-      <ul>
+      <Link to="/" className="navbar-brand">
+        <span className="logo-dots"></span>
+        VoteCloud
+      </Link>
+      
+      <div className="navbar-links">
         {isAuthenticated ? (
           <>
-            <li>Hello, {user && user.username}</li>
-            <li>
-              <Link to="/elections">Elections</Link>
-            </li>
+            <span className="user-greeting">Hello, {user && user.username}</span>
+            <Link to="/elections">Elections</Link>
             {user && user.isAdmin && (
-              <li>
-                <Link to="/admin/dashboard">Admin Dashboard</Link>
-              </li>
+              <Link to="/admin" className="admin-link">Admin Dashboard</Link>
             )}
-            <li>
-              <a onClick={onLogout} href="#!">Logout</a>
-            </li>
+            <button onClick={onLogout} className="logout-btn">Logout</button>
           </>
         ) : (
           <>
-            <li>
-              <Link to="/elections">Elections</Link>
-            </li>
-            <li>
-              <Link to="/register">Register</Link>
-            </li>
-            <li>
-              <Link to="/login">Login</Link>
-            </li>
+            <Link to="/elections">Elections</Link>
+            <Link to="/register">Register</Link>
+            <Link to="/login">Login</Link>
           </>
         )}
-      </ul>
+      </div>
     </nav>
   );
 };

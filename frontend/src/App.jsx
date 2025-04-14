@@ -48,7 +48,7 @@ function App() {
               </Routes>
               </ErrorBoundary>
             </div>
-            <Footer />
+            {/* <Footer /> */}
           </div>
         </Router>
       </ElectionState>

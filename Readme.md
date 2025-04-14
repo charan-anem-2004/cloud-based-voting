@@ -13,7 +13,7 @@ docker run --name backend -p 5001:5001 --network voting-network voting-backend
 
 step 3: Run the react container
 
-docker run -p 5174:80 --network voting-network charanaravind/cloudreact
+docker run --name frontend -p 5174:80 --network voting-network charanaravind/cloudreact
 
 docker network inspect voting-network
 

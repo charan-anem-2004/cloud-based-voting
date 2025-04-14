@@ -24,7 +24,7 @@ const ElectionState = props => {
   };
 
   const [state, dispatch] = useReducer(electionReducer, initialState);
-const base_url='http://backend:5001';
+const base_url='http://localhost:5001';
   // Get Elections
   const getElections = async () => {
     try {
