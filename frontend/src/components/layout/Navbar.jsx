@@ -24,7 +24,7 @@ const Navbar = () => {
             <span className="user-greeting">Hello, {user && user.username}</span>
             <Link to="/elections">Elections</Link>
             {user && user.isAdmin && (
-              <Link to="/admin" className="admin-link">Admin Dashboard</Link>
+              <Link to="/admin/dashboard" className="admin-link">Admin Dashboard</Link>
             )}
             <button onClick={onLogout} className="logout-btn">Logout</button>
           </>

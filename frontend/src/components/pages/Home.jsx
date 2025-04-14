@@ -79,7 +79,7 @@ const Home = () => {
     ) : (
       <div className="hero-auth">
         <p className="hero-welcome">Welcome back, {user?.username}!</p>
-        <Link to="/elections" className="register-btn">View Active Elections</Link>
+        <Link to="/elections" className="hero-btn register-btn">View Active Elections</Link>
       </div>
     )}
   </div>
@@ -96,7 +96,7 @@ const Home = () => {
                 {activeElections.map(election => (
                   <div key={election._id} className="election-card bg-white rounded-lg shadow-lg overflow-hidden border border-gray-200 transition duration-300 hover:shadow-xl">
                     <div className="h-40 bg-blue-100 flex items-center justify-center">
-                      <img src="/api/placeholder/400/320" alt="Election" className="w-full h-full object-cover" />
+                      <img src="https://tse3.mm.bing.net/th?id=OIP.8P31y5ji9cdMsdPlFEymBAHaEK&pid=Api&P=0&h=180" alt="Election" className="w-full h-full object-cover" />
                     </div>
                     <div className="p-6">
                       <h3 className="text-xl font-bold mb-2 text-gray-800">{election.title}</h3>
