@@ -7,6 +7,7 @@ const socketIo = require('socket.io');
 
 dotenv.config();
 
+
 const app = express();
 const server = http.createServer(app);
 const io = socketIo(server, {
@@ -14,6 +15,9 @@ const io = socketIo(server, {
     origin: "*",
     methods: ["GET", "POST"]
   }
+});
+app.get('/', (req, res) => {
+  res.send('Server is running...');
 });
 
 // Middleware

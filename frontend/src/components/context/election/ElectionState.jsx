@@ -108,7 +108,7 @@ const base_url='http://localhost:5001';
     };
 
     try {
-      const res = await axios.put(`${base_url}/api/elections/${election._id}`, election, config);
+      const res = await axios.put(`${base_url}/api/elections/${election._id}`, id, config);
 
       dispatch({
         type: UPDATE_ELECTION,
@@ -123,19 +123,24 @@ const base_url='http://localhost:5001';
   };
 
   // Cast Vote
-  const castVote = async voteData => {
+  const castVote = async (electionId, candidateIndex) => {
     const config = {
       headers: {
         'Content-Type': 'application/json'
       }
     };
-
+  
+    const data = {
+      electionId,
+      candidateIndex
+    };
+  
     try {
-      const res = await axios.post(`${base_url}/api/votes`, voteData, config);
-
+      const res = await axios.post(`${base_url}/api/votes`, data, config);
+  
       dispatch({
         type: CAST_VOTE,
-        payload: { ...voteData, message: res.data.msg }
+        payload: { electionId, candidateIndex, message: res.data.msg }
       });
     } catch (err) {
       dispatch({
@@ -144,6 +149,7 @@ const base_url='http://localhost:5001';
       });
     }
   };
+  
 
   // Clear Errors
   const clearErrors = () => dispatch({ type: CLEAR_ERRORS });

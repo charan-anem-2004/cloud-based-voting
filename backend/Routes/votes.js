@@ -26,14 +26,13 @@ router.post('/', auth, async (req, res) => {
     // Check if candidate exists
     if (candidateIndex < 0 || candidateIndex >= election.candidates.length) {
       return res.status(400).json({ msg: 'Invalid candidate' });
-      alert("invalid candidate")
     }
     
     // Check if user already voted
     const existingVote = await Vote.findOne({ election: electionId, user: req.user.id });
     if (existingVote) {
       return res.status(400).json({ msg: 'You have already voted in this election' });
-      alert("you already voted int his election");
+
     }
     
     // Create vote record
@@ -50,7 +49,6 @@ router.post('/', auth, async (req, res) => {
     await election.save();
     
     res.json({ msg: 'Vote recorded successfully' });
-    alert("voted successfully");
     } catch (err) {
     console.error(err.message);
     res.status(500).send('Server error');

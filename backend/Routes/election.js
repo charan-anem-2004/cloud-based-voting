@@ -101,10 +101,10 @@ router.delete('/:id', auth, async (req, res) => {
     const election = await Election.findById(req.params.id);
     if (!election) {
       return res.status(404).json({ msg: 'Election not found' });
-      alert("elecetion not found ");
+       alert("elecetion not found ");
     }
     
-    await Election.findByIdAndRemove(req.params.id);
+    await Election.findByIdAndDelete(req.params.id);
     res.json({ msg: 'Election removed' });
     alert("election removed");
   } catch (err) {
