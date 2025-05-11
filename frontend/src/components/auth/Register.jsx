@@ -65,7 +65,7 @@ const Register = () => {
       <div className="auth-card">
         <div className="auth-header">
           <h1 className="auth-title">Create Account</h1>
-          <p className="auth-subtitle">Join VoteCloud and start participating in elections</p>
+          <p className="auth-subtitle">Join Cloud Voting and start participating in elections</p>
         </div>
 
         <form onSubmit={onSubmit} className="auth-form">

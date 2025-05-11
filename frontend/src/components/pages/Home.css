@@ -37,7 +37,7 @@ section {
   align-items: center;
   gap: 2rem;
   padding: 6rem 2rem;
-  background: linear-gradient(135deg, #f9fafb 0%, #e0e7ff 100%);
+  background: linear-gradient(135deg, #f9fbf9 0%, #e2ffe0 100%);
   position: relative;
   overflow: hidden;
 }

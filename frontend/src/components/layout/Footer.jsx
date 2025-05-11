@@ -15,7 +15,7 @@ const Footer = () => {
                 <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
                 <circle cx="12" cy="12" r="3"></circle>
               </svg>
-              <span>Vote<span className="logo-accent">Cloud</span></span>
+              <span>Cloud<span className="logo-accent">Voting</span></span>
             </Link>
             <p className="footer-tagline">Secure Cloud-Based Voting System</p>
           </div>
@@ -64,7 +64,7 @@ const Footer = () => {
         </div>
         
         <div className="footer-bottom">
-          <p className="copyright">© {currentYear} VoteCloud. All rights reserved.</p>
+          <p className="copyright">© {currentYear} Cloud Voting. All rights reserved.</p>
           <div className="social-links">
             <a href="https://twitter.com" className="social-link" aria-label="Twitter">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">

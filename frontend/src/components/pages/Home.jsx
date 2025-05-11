@@ -125,7 +125,7 @@ const Home = () => {
       {/* Features Section */}
       <section className="features-section">
         <div className="section-header">
-          <h2 className="section-title">Why Choose VoteCloud?</h2>
+          <h2 className="section-title">Why Choose Cloud Voting?</h2>
           <p className="section-subtitle">Our platform provides a secure and convenient way to participate in elections.</p>
         </div>
         
@@ -213,7 +213,7 @@ const Home = () => {
       <section className="steps-section">
         <div className="section-header">
           <h2 className="section-title">How It Works</h2>
-          <p className="section-subtitle">Getting started with VoteCloud is easy.</p>
+          <p className="section-subtitle">Getting started with Cloud Voting is easy.</p>
         </div>
         
         <div className="steps-container">

@@ -54,7 +54,7 @@ const Login = () => {
       <div className="auth-card">
         <div className="auth-header">
           <h1 className="auth-title">Welcome Back</h1>
-          <p className="auth-subtitle">Sign in to your VoteCloud account</p>
+          <p className="auth-subtitle">Sign in to your Cloud Voting account</p>
         </div>
 
         <form onSubmit={onSubmit} className="auth-form">

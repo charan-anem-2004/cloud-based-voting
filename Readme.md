@@ -56,3 +56,10 @@ docker run --name backend -p 5001:5001 --network voting-network voting-backend
 
 docker push charnaravind/cloudreact
 docker push charanaravind/backend
+
+for reverse proxy file
+sudo nano /etc/nginx/sites-available/react-proxy
+
+tmux attach -t frontend
+
+tmux attach -t backend

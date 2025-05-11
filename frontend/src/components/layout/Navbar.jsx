@@ -34,7 +34,7 @@ const Navbar = () => {
             <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
             <circle cx="12" cy="12" r="3"></circle>
           </svg>
-          <span>Vote<span className="logo-accent">Cloud</span></span>
+          <span>Cloud<span className="logo-accent">Voting</span></span>
         </Link>
         
         <div className="mobile-menu-toggle" onClick={toggleMobileMenu}>
