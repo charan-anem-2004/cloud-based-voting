@@ -3,6 +3,8 @@ import axios from 'axios';
 import AuthContext from './AuthContext';
 import authReducer from './AuthReducer';
 import setAuthToken from '../../utils/SetAuthtoken';
+
+
 import {
 USER_LOADED,
 AUTH_ERROR,
@@ -24,7 +26,7 @@ error: null
 };
 
 const [state, dispatch] = useReducer(authReducer, initialState);
-const base_url='http://localhost:5001';
+const base_url= 'http://localhost:5001';
 
 // Load User
 const loadUser = async () => {
