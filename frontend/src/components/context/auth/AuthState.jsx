@@ -1,146 +1,146 @@
-import React, { useReducer } from 'react';
-import axios from 'axios';
-import AuthContext from './AuthContext';
-import authReducer from './AuthReducer';
-import setAuthToken from '../../utils/SetAuthtoken';
-
+import React, { useReducer } from "react";
+import axios from "axios";
+import AuthContext from "./AuthContext";
+import authReducer from "./AuthReducer";
+import setAuthToken from "../../utils/SetAuthtoken";
 
 import {
-USER_LOADED,
-AUTH_ERROR,
-LOGIN_SUCCESS,
-LOGIN_FAIL,
-LOGOUT,
-REGISTER_SUCCESS,
-REGISTER_FAIL,
-CLEAR_ERRORS
-} from '../types';
+  USER_LOADED,
+  AUTH_ERROR,
+  LOGIN_SUCCESS,
+  LOGIN_FAIL,
+  LOGOUT,
+  REGISTER_SUCCESS,
+  REGISTER_FAIL,
+  CLEAR_ERRORS,
+} from "../types";
 
-const AuthState = props => {
-const initialState = {
-token: localStorage.getItem('token'),
-isAuthenticated: null,
-loading: true,
-user: null,
-error: null
-};
+const AuthState = (props) => {
+  const initialState = {
+    token: localStorage.getItem("token"),
+    isAuthenticated: null,
+    loading: true,
+    user: null,
+    error: null,
+  };
 
-const [state, dispatch] = useReducer(authReducer, initialState);
-const base_url= 'http://localhost:5001';
+  const [state, dispatch] = useReducer(authReducer, initialState);
+  const base_url = "https://cloud-based-voting.onrender.com/";
 
-// Load User
-const loadUser = async () => {
-  // Check if token exists in localStorage
-  if (localStorage.token) {
-    // Set the token in axios headers
-    setAuthToken(localStorage.token);
-  } else {
-    // If no token, dispatch AUTH_ERROR and return early
-    dispatch({ type: AUTH_ERROR });
-    alert ("No token found, please login again.");
-    return;
-  }
+  // Load User
+  const loadUser = async () => {
+    // Check if token exists in localStorage
+    if (localStorage.token) {
+      // Set the token in axios headers
+      setAuthToken(localStorage.token);
+    } else {
+      // If no token, dispatch AUTH_ERROR and return early
+      dispatch({ type: AUTH_ERROR });
+      alert("No token found, please login again.");
+      return;
+    }
 
-  try {
-    const res = await axios.get(`${base_url}/api/auth`);
-    
-    dispatch({
-      type: USER_LOADED,
-      payload: res.data
-    });
-  } catch (err) {
-    dispatch({ type: AUTH_ERROR });
-  }
-};
+    try {
+      const res = await axios.get(`${base_url}/api/auth`);
 
-
-// Register User
-const register = async formData => {
-const config = {
-headers: {
-'Content-Type': 'application/json'
-}
-};
-try {
-    const res = await axios.post(`${base_url}/api/auth/register`, formData, config);
-  
-    dispatch({
-      type: REGISTER_SUCCESS,
-      payload: res.data
-    });
-    alert("user registered sucessfully");
-    setAuthToken(res.data.token);
-  
-    loadUser();
-  } catch (err) {
-    dispatch({
-      type: REGISTER_FAIL,
-      payload: err.response.data.msg
-    });
-    alert( err.response?.data?.msg || 'registration failed');
-  }
-};
-
-// Login User
-const login = async formData => {
-  const config = {
-    headers: {
-      'Content-Type': 'application/json'
+      dispatch({
+        type: USER_LOADED,
+        payload: res.data,
+      });
+    } catch (err) {
+      dispatch({ type: AUTH_ERROR });
     }
   };
-  
-  try {
-    const res = await axios.post(`${base_url}/api/auth/login`, formData, config);
-    
-    // Set the token in axios headers for future requests
-    setAuthToken(res.data.token);
-    
-    dispatch({
-      type: LOGIN_SUCCESS,
-      payload: res.data
-    });
-    alert("login success")
-    
-    loadUser();
-  } catch (err) {
-    dispatch({
-      type: LOGIN_FAIL,
-      payload: err.response?.data?.msg || 'Login failed'
 
-    });
-    alert(err.response?.data?.msg || 'Login failed');
-  }
-};
+  // Register User
+  const register = async (formData) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    try {
+      const res = await axios.post(
+        `${base_url}/api/auth/register`,
+        formData,
+        config
+      );
 
+      dispatch({
+        type: REGISTER_SUCCESS,
+        payload: res.data,
+      });
+      alert("user registered sucessfully");
+      setAuthToken(res.data.token);
 
-// Logout
-const logout = () => dispatch({ type: LOGOUT });
+      loadUser();
+    } catch (err) {
+      dispatch({
+        type: REGISTER_FAIL,
+        payload: err.response.data.msg,
+      });
+      alert(err.response?.data?.msg || "registration failed");
+    }
+  };
 
-// Clear Errors
-const clearErrors = () => dispatch({ type: CLEAR_ERRORS });
+  // Login User
+  const login = async (formData) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
 
-return (
-<AuthContext.Provider
-value={{
-token: state.token,
-isAuthenticated: state.isAuthenticated,
-loading: state.loading,
-user: state.user,
-error: state.error,
-register,
-loadUser,
-login,
-logout,
-clearErrors
-}}
->
-{props.children}
-</AuthContext.Provider>
-);
+    try {
+      const res = await axios.post(
+        `${base_url}/api/auth/login`,
+        formData,
+        config
+      );
+
+      // Set the token in axios headers for future requests
+      setAuthToken(res.data.token);
+
+      dispatch({
+        type: LOGIN_SUCCESS,
+        payload: res.data,
+      });
+      alert("login success");
+
+      loadUser();
+    } catch (err) {
+      dispatch({
+        type: LOGIN_FAIL,
+        payload: err.response?.data?.msg || "Login failed",
+      });
+      alert(err.response?.data?.msg || "Login failed");
+    }
+  };
+
+  // Logout
+  const logout = () => dispatch({ type: LOGOUT });
+
+  // Clear Errors
+  const clearErrors = () => dispatch({ type: CLEAR_ERRORS });
+
+  return (
+    <AuthContext.Provider
+      value={{
+        token: state.token,
+        isAuthenticated: state.isAuthenticated,
+        loading: state.loading,
+        user: state.user,
+        error: state.error,
+        register,
+        loadUser,
+        login,
+        logout,
+        clearErrors,
+      }}
+    >
+      {props.children}
+    </AuthContext.Provider>
+  );
 };
 
 export default AuthState;
-
-
-  
-

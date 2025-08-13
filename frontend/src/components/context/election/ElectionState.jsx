@@ -1,7 +1,7 @@
-import React, { useReducer } from 'react';
-import axios from 'axios';
-import ElectionContext from './ElectionContext';
-import electionReducer from './ElectionReducer';
+import React, { useReducer } from "react";
+import axios from "axios";
+import ElectionContext from "./ElectionContext";
+import electionReducer from "./ElectionReducer";
 import {
   GET_ELECTIONS,
   GET_ELECTION,
@@ -12,19 +12,19 @@ import {
   CAST_VOTE,
   VOTE_ERROR,
   CLEAR_ERRORS,
-  CLEAR_CURRENT
-} from '../types';
+  CLEAR_CURRENT,
+} from "../types";
 
-const ElectionState = props => {
+const ElectionState = (props) => {
   const initialState = {
     elections: null,
     currentElection: null,
     error: null,
-    loading: true
+    loading: true,
   };
 
   const [state, dispatch] = useReducer(electionReducer, initialState);
-const base_url='http://localhost:5001';
+  const base_url = "https://cloud-based-voting.onrender.com/";
   // Get Elections
   const getElections = async () => {
     try {
@@ -32,92 +32,100 @@ const base_url='http://localhost:5001';
 
       dispatch({
         type: GET_ELECTIONS,
-        payload: res.data
+        payload: res.data,
       });
     } catch (err) {
       dispatch({
         type: ELECTION_ERROR,
-        payload: err.response?.data?.msg || 'Error fetching elections'
+        payload: err.response?.data?.msg || "Error fetching elections",
       });
     }
   };
 
   // Get Election
-  const getElection = async id => {
+  const getElection = async (id) => {
     try {
       const res = await axios.get(`${base_url}/api/elections/${id}`);
 
       dispatch({
         type: GET_ELECTION,
-        payload: res.data
+        payload: res.data,
       });
     } catch (err) {
       dispatch({
         type: ELECTION_ERROR,
-        payload: err.response?.data?.msg || 'Error fetching election'
+        payload: err.response?.data?.msg || "Error fetching election",
       });
     }
   };
 
   // Add Election
-  const addElection = async election => {
+  const addElection = async (election) => {
     const config = {
       headers: {
-        'Content-Type': 'application/json'
-      }
+        "Content-Type": "application/json",
+      },
     };
 
     try {
-      const res = await axios.post(`${base_url}/api/elections`, election, config);
+      const res = await axios.post(
+        `${base_url}/api/elections`,
+        election,
+        config
+      );
 
       dispatch({
         type: ADD_ELECTION,
-        payload: res.data
+        payload: res.data,
       });
     } catch (err) {
       dispatch({
         type: ELECTION_ERROR,
-        payload: err.response?.data?.msg || 'Error adding election'
+        payload: err.response?.data?.msg || "Error adding election",
       });
     }
   };
 
   // Delete Election
-  const deleteElection = async id => {
+  const deleteElection = async (id) => {
     try {
       await axios.delete(`${base_url}/api/elections/${id}`);
 
       dispatch({
         type: DELETE_ELECTION,
-        payload: id
+        payload: id,
       });
     } catch (err) {
       dispatch({
         type: ELECTION_ERROR,
-        payload: err.response?.data?.msg || 'Error deleting election'
+        payload: err.response?.data?.msg || "Error deleting election",
       });
     }
   };
 
   // Update Election
-  const updateElection = async election => {
+  const updateElection = async (election) => {
     const config = {
       headers: {
-        'Content-Type': 'application/json'
-      }
+        "Content-Type": "application/json",
+      },
     };
 
     try {
-      const res = await axios.put(`${base_url}/api/elections/${election._id}`, id, config);
+      const res = await axios.put(
+        `${base_url}/api/elections/${election._id}`,
+        id,
+        config
+      );
 
       dispatch({
         type: UPDATE_ELECTION,
-        payload: res.data
+        payload: res.data,
       });
     } catch (err) {
       dispatch({
         type: ELECTION_ERROR,
-        payload: err.response?.data?.msg || 'Error updating election'
+        payload: err.response?.data?.msg || "Error updating election",
       });
     }
   };
@@ -126,30 +134,29 @@ const base_url='http://localhost:5001';
   const castVote = async (electionId, candidateIndex) => {
     const config = {
       headers: {
-        'Content-Type': 'application/json'
-      }
+        "Content-Type": "application/json",
+      },
     };
-  
+
     const data = {
       electionId,
-      candidateIndex
+      candidateIndex,
     };
-  
+
     try {
       const res = await axios.post(`${base_url}/api/votes`, data, config);
-  
+
       dispatch({
         type: CAST_VOTE,
-        payload: { electionId, candidateIndex, message: res.data.msg }
+        payload: { electionId, candidateIndex, message: res.data.msg },
       });
     } catch (err) {
       dispatch({
         type: VOTE_ERROR,
-        payload: err.response?.data?.msg || 'Error casting vote'
+        payload: err.response?.data?.msg || "Error casting vote",
       });
     }
   };
-  
 
   // Clear Errors
   const clearErrors = () => dispatch({ type: CLEAR_ERRORS });
@@ -171,7 +178,7 @@ const base_url='http://localhost:5001';
         updateElection,
         castVote,
         clearErrors,
-        clearCurrent
+        clearCurrent,
       }}
     >
       {props.children}
